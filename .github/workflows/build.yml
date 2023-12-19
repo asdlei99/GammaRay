@@ -92,12 +92,11 @@ jobs:
         # Exclude
         # quickmaterialtest|quicktexturetest fails because of QT_QUICK_BACKEND=software AND QT_QPA_PLATFORM=offscreen
         # quickinspectortest|quickinspectortest2 fails at CI, local with 6.2.4 passes
-        # modelinspectortest fails in Qt6/CI passes locally
       - name: Run tests on Linux Qt6 (offscreen)
         if: ${{ runner.os == 'Linux' && matrix.config.qt_major == 6 }}
         run: >
           ctest --test-dir ./build -C ${{ matrix.build_type }} --output-on-failure
-          --exclude-regex "quickmaterialtest|quicktexturetest|bindinginspectortest|quickinspectortest|quickinspectortest2|modelinspectortest|timertoptest"
+          --exclude-regex "quickmaterialtest|quicktexturetest|bindinginspectortest|quickinspectortest|quickinspectortest2|timertoptest"
         env:
           QT_QPA_PLATFORM: offscreen
           QT_QUICK_BACKEND: software
@@ -116,7 +115,6 @@ jobs:
         #28 - probeabidetectortest (Failed)
         #31 - launchertest (Failed)
         #32 - clientconnectiontest (Failed)
-        # modelinspectortest fails in Qt6/CI passes locally
         # quickinspectortest2
         # bindinginspectortest fails in client_and_ui
       - name: Run tests Qt6 on macOS
@@ -124,7 +122,7 @@ jobs:
         run: >
           ctest --test-dir ./build -C ${{ matrix.build_type }} --output-on-failure
           --exclude-regex
-          "probeabidetectortest|launchertest|clientconnectiontest|modelinspectortest|quickinspectortest2|bindinginspectortest|quicktexturetest|timertoptest"
+          "probeabidetectortest|launchertest|clientconnectiontest|quickinspectortest2|bindinginspectortest|quicktexturetest|timertoptest"
 
         # Exclude
         # quicktexturetest
@@ -138,12 +136,11 @@ jobs:
         # Exclude
         # quicktexturetest
         # bindinginspectortest
-        # modelinspectortest fails in Qt6/CI passes locally
       - name: Qt6 Run tests on Windows
         if: ${{ runner.os == 'Windows' && matrix.config.qt_major == 6 }}
         run: >
           ctest --test-dir ./build -C ${{ matrix.build_type }} --output-on-failure
-          --exclude-regex "quicktexturetest|launchertest|bindinginspectortest|modelinspectortest|timertoptest|probesettingstest"
+          --exclude-regex "quicktexturetest|launchertest|bindinginspectortest|timertoptest|probesettingstest"
 
       - name: Read tests log when it fails
         uses: andstor/file-reader-action@v1
